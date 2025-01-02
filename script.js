@@ -1,4 +1,3 @@
-//your JS code here. If required.
 let player1 = "";
 let player2 = ""; 
 let currentPlayer = ""; 
@@ -6,7 +5,7 @@ let board = ["", "", "", "", "", "", "", "", ""];
 
 // This function is used for deciding who starts first
 function getStartingPlayer(){
-    return Math.floor(Math.random()*2+1);
+    return Math.floor(Math.random() * 2) + 1;
 }
 
 // Event Listener for form submission in the game
@@ -26,7 +25,6 @@ document.getElementById("playerForm").addEventListener("submit", function(event)
     // Hide the form and show the game board after submit player details
     document.getElementById("playerForm").classList.add("hidden"); 
     document.getElementById("gameBoard").classList.remove("hidden");
-
 });
 
 // This function is used for switching turn one by one
@@ -36,15 +34,15 @@ function switchTurn(){
 }
 
 function makeMove(cellIndex){
-    if(board[cellIndex] === "") { 
+    if (board[cellIndex] === "") { 
         board[cellIndex] = currentPlayer; 
         document.getElementById("cell-" + cellIndex).innerHTML = currentPlayer === player1 ? "X" : "O"; 
 
         if (checkWin()) { 
-            alert(currentPlayer + " wins!"); 
+            document.getElementById("victoryMessage").innerHTML = currentPlayer + " wins!";
             resetGame(); 
-        } else if(board.every(cell => cell !== "")) { 
-            alert("It's a draw!"); 
+        } else if (board.every(cell => cell !== "")) { 
+            document.getElementById("victoryMessage").innerHTML = "It's a draw!";
             resetGame(); 
         } else { 
             switchTurn();
@@ -72,6 +70,7 @@ function resetGame() {
     document.getElementById("gameBoard").classList.add("hidden"); 
     document.getElementById("currentPlayer").innerHTML = ""; 
 }
+document.getElementById("victoryMessage").innerHTML = ""; // Clear any previous messages
 
 // Add event listeners to all cells
 document.querySelectorAll(".cell").forEach((cell, index) => { 
