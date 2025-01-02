@@ -20,17 +20,20 @@ document.getElementById("playerForm").addEventListener("submit", function(event)
 
     // Randomly select the starting player
     currentPlayer = (getStartingPlayer() === 1) ? player1 : player2;
-    document.getElementById("currentPlayer").innerHTML = "Current Player: " + currentPlayer;
+    document.getElementById("currentPlayer").innerHTML = currentPlayer + ", you're up";
 
     // Hide the form and show the game board after submit player details
     document.getElementById("playerForm").classList.add("hidden"); 
     document.getElementById("gameBoard").classList.remove("hidden");
+
+    // Clear any previous victory message
+    document.getElementById("victoryMessage").innerHTML = "";
 });
 
 // This function is used for switching turn one by one
 function switchTurn(){
     currentPlayer = (currentPlayer === player1) ? player2 : player1; 
-    document.getElementById("currentPlayer").innerHTML = "Current Player: " + currentPlayer;
+    document.getElementById("currentPlayer").innerHTML = currentPlayer + ", you're up";
 }
 
 function makeMove(cellIndex){
@@ -40,10 +43,8 @@ function makeMove(cellIndex){
 
         if (checkWin()) { 
             document.getElementById("victoryMessage").innerHTML = currentPlayer + " wins!";
-            resetGame(); 
         } else if (board.every(cell => cell !== "")) { 
             document.getElementById("victoryMessage").innerHTML = "It's a draw!";
-            resetGame(); 
         } else { 
             switchTurn();
         } 
@@ -70,7 +71,6 @@ function resetGame() {
     document.getElementById("gameBoard").classList.add("hidden"); 
     document.getElementById("currentPlayer").innerHTML = ""; 
 }
-document.getElementById("victoryMessage").innerHTML = ""; // Clear any previous messages
 
 // Add event listeners to all cells
 document.querySelectorAll(".cell").forEach((cell, index) => { 
