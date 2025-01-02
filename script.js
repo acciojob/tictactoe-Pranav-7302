@@ -42,7 +42,7 @@ function makeMove(cellIndex){
         document.getElementById("cell-" + cellIndex).innerHTML = currentPlayer === player1 ? "X" : "O"; 
 
         if (checkWin()) { 
-            document.getElementById("victoryMessage").innerHTML = currentPlayer;
+            document.getElementById("victoryMessage").innerHTML = currentPlayer.trim()
         } else if (board.every(cell => cell !== "")) { 
             document.getElementById("victoryMessage").innerHTML = "It's a draw!";
         } else { 
